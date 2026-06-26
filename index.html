@@ -173,8 +173,20 @@ function showMain() {
     document.getElementById('settingsScreen').style.display = 'none';
     document.getElementById('mainScreen').style.display = 'block';
     document.getElementById('gearButton').style.display = 'block'; // Показываем шестеренку на главном экране
+    document.getElementById('previous').value = localStorage.getItem('lastPreviousValue');
+    
+    if (localStorage.getItem('lastCurrentValue')) {
+    document.getElementById('current').value = localStorage.getItem('lastCurrentValue');
+    } else {
     document.getElementById('current').value = '';
+    }
+    
+    if (localStorage.getItem('lastPreviousValue')) {
+    document.getElementById('previous').value = localStorage.getItem('lastPreviousValue');
+    } else {
     document.getElementById('previous').value = '';
+    }
+    
 }
 
 function saveSettings() {
@@ -220,6 +232,7 @@ function sendEmail() {
 
     const current = parseFloat(document.getElementById('current').value);
     const previous = parseFloat(document.getElementById('previous').value);
+    
 	if (!Number.isInteger(current) || !Number.isInteger(previous)) {
 		alert("Пожалуйста, вводите только целые числа!");
 		return;
@@ -235,7 +248,8 @@ function sendEmail() {
         alert("Ошибка: Текущие показания не могут быть меньше предыдущих!");
         return;
     }
-
+	localStorage.setItem('lastCurrentValue', current);
+	localStorage.setItem('lastPreviousValue', previous);
     // Сначала санитизируем HTML-символы
     template = template
         .replace(/</g, "&lt;")
@@ -250,7 +264,7 @@ function sendEmail() {
 
     const subjectEncoded = encodeURIComponent(emailSubject);
     const bodyEncoded = encodeURIComponent(fullBody);
-
+    
     window.location.href = `mailto:${emailTo}?subject=${subjectEncoded}&body=${bodyEncoded}`;
 }
 </script>
