@@ -1,4 +1,4 @@
-<img src="./vibe-coding-alert.png" width="100" align="right" alt="Внимание! вайб-кодеры">
+<img src="./vibe-coding-alert.png" width="100" align="right" alt="Внимание! вайб-кодер">
 <br>
 
 # 📧 Отправка показаний счетчика
